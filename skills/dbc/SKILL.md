@@ -45,5 +45,5 @@ Drivers installed with dbc must be used with an ADBC driver manager. dbc cannot 
 
 Resources for using drivers:
 
-- How to load drivers and connect to databases: https://github.com/columnar-tech/adbc-quickstarts:
+- How to load drivers and connect to databases: https://github.com/columnar-tech/adbc-quickstarts
 - Python Cookbooks for ADBC: https://arrow.apache.org/adbc/current/python/recipe/index.html
