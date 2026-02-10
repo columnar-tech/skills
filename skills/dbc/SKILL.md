@@ -1,6 +1,6 @@
 ---
 name: dbc
-description: Install ADBC (Arrow Database Connectivity) drivers with dbc. Use when the user wants to install database drivers and connect to database.
+description: Install ADBC (Arrow Database Connectivity) drivers with dbc. Use when the user wants to install database drivers and connect to databases.
 license: Apache-2.0
 metadata:
   author: Columnar
