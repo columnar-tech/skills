@@ -49,6 +49,10 @@ with dbapi.connect(driver="sqlite", db_kwargs={"uri": ":memory:"}) as con:
         # Ingest a Parquet file and read it back
         penguins = pq.read_table("../penguins.parquet")
         cursor.adbc_ingest("penguins", penguins)
+
+        # Important! dbapi does not autocommit by default so we should commit
+        con.commit()
+
         cursor.execute("SELECT COUNT(*) AS total_rows FROM penguins")
         print(cursor.fetch_arrow_table())
 
