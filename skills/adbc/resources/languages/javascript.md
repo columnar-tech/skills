@@ -2,7 +2,7 @@
 
 ## Supported Environments
 
-The JavaScript ADBC driver manager requires Node.js 22+ and does not work in browser environments or Deno.
+The JavaScript ADBC driver manager requires Node.js 22+, Bun 1.1+, or Deno 2.0+. It does not work in browser environments.
 
 ## Suggested Packages
 
