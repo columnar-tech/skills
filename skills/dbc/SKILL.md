@@ -15,7 +15,7 @@ Install and manage drivers for the user with the dbc command line program.
 
 If the user does not have `dbc` available, try to install it for them.
 
-Prefer installing it with with these commands, in order of preference, if the tool is available:
+Prefer installing it with these commands, in order of preference, if the tool is available:
 
 - If `uv` is available: `uv tool install dbc`
 - If `pipx` is available: `pipx install dbc`
