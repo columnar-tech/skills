@@ -4,7 +4,7 @@ description: Connect to and work with databases using Arrow Database Connectivit
 license: Apache-2.0
 metadata:
   author: Columnar
-  version: "0.1.1"
+  version: "0.1.2"
 ---
 
 ## Find a driver for a database
