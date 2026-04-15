@@ -54,6 +54,7 @@ See the resources below depending on which language or languages the user wants 
 
 - C++: `resources/languages/cpp.md`
 - Go: `resources/languages/go.md`
+- JavaScript: `resources/languages/javascript.md`
 - Python: `resources/languages/python.md`
 - R: `resources/languages/r.md`
 - Rust: `resources/languages/rust.md`
