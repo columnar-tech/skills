@@ -111,6 +111,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ## Connection Profiles
 
+New in version 0.23.0. Not available in older versions.
+
 Use `ManagedDatabase::from_uri` with a `profile://` URI to connect via a named profile:
 
 ```rust
@@ -147,8 +149,6 @@ let database = ManagedDatabase::from_uri_with_opts(
     overrides,
 )?;
 ```
-
-Set `ADBC_PROFILE_PATH` in the environment to point to the directory containing your `.toml` profile files. See `resources/connection-profiles.md` for TOML format and file locations.
 
 ## More information
 

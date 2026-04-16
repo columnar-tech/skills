@@ -95,25 +95,16 @@ await db.close();
 
 ## Connection Profiles
 
-Pass a `profile://` URI as the `driver` field and supply `profileSearchPaths` to tell the driver manager where to find your `.toml` files:
+Pass a `profile://` URI as the `driver` field:
 
 ```javascript
 import { AdbcDatabase } from "@apache-arrow/adbc-driver-manager";
 
 const db = new AdbcDatabase({
   driver: "profile://mydb_dev",
-  profileSearchPaths: ["/path/to/profiles"],
 });
 const connection = await db.connect();
-
-const table = await connection.query("SELECT 1");
-console.log(table.toArray());
-
-await connection.close();
-await db.close();
 ```
-
-`ADBC_PROFILE_PATH` in the environment is also searched. See `resources/connection-profiles.md` for TOML format and file locations.
 
 ## More information
 

@@ -68,21 +68,11 @@ with dbapi.connect(driver="sqlite", db_kwargs={"uri": ":memory:"}) as con:
 
 ## Connection Profiles
 
+New in version 1.11.0. Not available in older versions.
+
 Use a `profile://` URI to connect via a named profile instead of hardcoding driver and options:
 
 ```python
-#!/usr/bin/env -S uv run
-# /// script
-# requires-python = ">=3.10"
-# dependencies = ["adbc-driver-manager>=1.9.0"]
-# ///
-
-import os
-from adbc_driver_manager import dbapi
-
-os.environ["DB_PASSWORD"] = "secret"  # or set in the shell before running
-
-# profile://name loads <name>.toml from the ADBC profile search path
 with dbapi.connect("profile://mydb_dev") as con:
     with con.cursor() as cursor:
         cursor.execute("SELECT 1")
@@ -95,8 +85,6 @@ Pass `db_kwargs` to override specific options from the profile:
 with dbapi.connect("profile://mydb_dev", db_kwargs={"uri": "file::memory:"}) as con:
     ...
 ```
-
-Profile files are searched in `ADBC_PROFILE_PATH` (colon-separated list of directories) and the platform config directory. See `resources/connection-profiles.md` for TOML format and file locations.
 
 ## More information
 

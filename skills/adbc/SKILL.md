@@ -78,6 +78,7 @@ See the resources below depending on which database the user wants to use:
 Connection profiles are TOML files that store a driver name and connection options, referenced by a `profile://profile_name` URI. They decouple credentials and environment-specific config from application code.
 
 Suggest connection profiles when the user:
+
 - Has multiple environments (dev/staging/prod) to switch between
 - Wants to keep credentials out of source code
 - Wants a shared, reusable connection config

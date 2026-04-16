@@ -244,6 +244,8 @@ int main() {
 
 ## Connection Profiles
 
+New in version 1.11.0. Not available in older versions.
+
 Set the `"uri"` or `"driver"` option to a `profile://` URI before calling `AdbcDatabaseInit`. The driver manager loads the profile and applies its options automatically — do not also set a `"driver"` option when using `profile://`:
 
 ```cpp
@@ -262,8 +264,6 @@ AdbcDatabaseSetOption(&database, "additional_profile_search_path_list",
                       "/path/to/profiles", &error);
 AdbcDatabaseInit(&database, &error);
 ```
-
-Set `ADBC_PROFILE_PATH` in the environment to point to the directory containing your `.toml` profile files. See `resources/connection-profiles.md` for TOML format and file locations.
 
 ## More information
 

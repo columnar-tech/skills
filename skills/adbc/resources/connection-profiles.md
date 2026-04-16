@@ -3,9 +3,20 @@
 Connection profiles are TOML files that store a driver name and connection options. They decouple credentials and configuration from application code, enabling environment switching (dev/staging/prod) without code changes. They are resolved by the driver manager during database initialization — before the underlying driver is loaded — so all language bindings that use the C++ or Rust driver manager support them.
 
 Suggest connection profiles when the user:
+
 - Has multiple environments (dev/staging/prod) they want to switch between
 - Wants to keep credentials out of source code
 - Wants a reusable connection config shared across scripts or tools
+
+## Supported Libary Versions
+
+Connection profiles are only supported in newer versions of each language's bindings.
+
+- C++/Go/Python: 1.11.0
+- Java: 0.23.0
+- JavaScript: no minimum version
+- R: 0.23.0
+- Rust: 0.23.0
 
 ## TOML format
 
@@ -18,7 +29,10 @@ uri = ":memory:"
 ```
 
 - `profile_version` (required): must be `1`
-- `driver` (required unless the application supplies the driver itself): the dbc short name or full driver name
+- `driver` (required unless the application supplies the driver itself). Can be:
+  - A driver or driver manifest name (e.g., "snowflake"). These are the same as dbc's short names.
+  - A path to a shared library (e.g., "/usr/local/lib/libadbc_driver_snowflake.so")
+  - A path to a driver manifest (e.g., "/etc/adbc/drivers/snowflake.toml")
 - `[Options]` (required, even if empty): key/value pairs passed to `AdbcDatabaseSetOption` before init
 
 Option values support environment variable substitution:
@@ -31,16 +45,17 @@ password = "{{ env_var(DB_PASSWORD) }}"
 
 Missing environment variables substitute as empty string. Invalid syntax (malformed `env_var()`) raises an error at connection time.
 
-## File locations
+## Connection Profile Locations
 
-Profiles are TOML files named `<profile_name>.toml`. The driver manager searches for them in:
+Connection Profiles are TOML files named `<profile_name>.toml`. The driver manager searches for them in:
 
-- **macOS**: `~/Library/Application Support/ADBC/Profiles/`
-- **Linux**: `~/.config/adbc/profiles/`
-- **Windows**: `%LOCALAPPDATA%\ADBC\Profiles\`
-- Any paths listed in the `ADBC_PROFILE_PATH` environment variable (colon-separated on macOS/Linux, semicolon-separated on Windows)
-
-Hierarchical names are supported: `databases/postgres/production` maps to `databases/postgres/production.toml` within a search directory.
+- Additional Search Paths (if configured via `additional_profile_search_path_list` option)
+- `ADBC_PROFILE_PATH` environment variable (colon-separated on Unix, semicolon-separated on Windows)
+- Conda Environment (if built with Conda support and `CONDA_PREFIX` is set): `$CONDA_PREFIX/etc/adbc/profiles/`
+- User Configuration Directory:
+  - **Linux:** `$XDG_CONFIG_HOME/adbc/profiles` if set, else `~/.config/adbc/profiles/`
+  - **macOS:** `~/Library/Application Support/ADBC/Profiles/`
+  - **Windows:** `%LOCALAPPDATA%\ADBC\Profiles\`
 
 ## Overriding options
 
