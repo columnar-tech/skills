@@ -47,6 +47,22 @@ adbc_connection_release(con)
 adbc_database_release(db)
 ```
 
+## Connection Profiles
+
+The R `adbcdrivermanager` package compiles the C++ driver manager with profile support included. The exact R-level API to pass a `profile://` URI has not been verified with a dedicated R test in the upstream repo. Based on the C++ driver manager behavior the expected pattern is:
+
+```r
+library(adbcdrivermanager)
+
+db <- adbc_database_init(
+  adbc_driver("adbc_driver_manager"),
+  uri = "profile://mydb_dev"
+)
+con <- adbc_connection_init(db)
+```
+
+Set `ADBC_PROFILE_PATH` in the environment to point to the directory containing your `.toml` profile files. See `resources/connection-profiles.md` for TOML format and file locations.
+
 ## More information
 
 See https://arrow.apache.org/adbc/current/r/index.html for more detailed documentation if needed.

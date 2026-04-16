@@ -192,6 +192,28 @@ func main() {
 }
 ```
 
+## Connection Profiles
+
+The Go `drivermgr` package wraps the C++ driver manager and inherits connection profile support. Pass a `profile://` URI as the `"uri"` option value — no `"driver"` key is needed when the profile specifies the driver.
+
+The exact API to pass the URI has not been verified with a dedicated Go test in the upstream repo. Based on the C++ driver manager behavior the expected pattern is:
+
+```go
+db, err := drv.NewDatabase(map[string]string{
+    "uri": "profile://mydb_dev",
+})
+```
+
+Or via the `"driver"` key:
+
+```go
+db, err := drv.NewDatabase(map[string]string{
+    "driver": "profile://mydb_dev",
+})
+```
+
+Set `ADBC_PROFILE_PATH` in the environment to point to the directory containing your `.toml` profile files. See `resources/connection-profiles.md` for TOML format and file locations.
+
 ## More information
 
 See https://pkg.go.dev/github.com/apache/arrow-adbc/go/adbc for more detailed documentation if needed.
