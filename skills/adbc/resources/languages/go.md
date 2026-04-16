@@ -198,7 +198,6 @@ New in version 1.11.0. Not available in older versions.
 
 The Go `drivermgr` package wraps the C++ driver manager and inherits connection profile support. Pass a `profile://` URI as the `"uri"` option value — no `"driver"` key is needed when the profile specifies the driver.
 
-
 ```go
 db, err := drv.NewDatabase(map[string]string{
     "uri": "profile://mydb_dev",

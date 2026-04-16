@@ -51,6 +51,8 @@ adbc_database_release(db)
 
 New in version 0.23.0. Not available in older versions.
 
+To use connection profiles, pass a `profile://` URI as the `uri` argument to `adbc_database_init`:
+
 ```r
 db <- adbc_database_init(
   adbc_driver("adbc_driver_manager"),

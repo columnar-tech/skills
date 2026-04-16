@@ -8,7 +8,7 @@ Suggest connection profiles when the user:
 - Wants to keep credentials out of source code
 - Wants a reusable connection config shared across scripts or tools
 
-## Supported Libary Versions
+## Supported Library Versions
 
 Connection profiles are only supported in newer versions of each language's bindings.
 
