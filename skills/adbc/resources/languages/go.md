@@ -192,6 +192,26 @@ func main() {
 }
 ```
 
+## Connection Profiles
+
+New in version 1.11.0. Not available in older versions.
+
+The Go `drivermgr` package wraps the C++ driver manager and inherits connection profile support. Pass a `profile://` URI as the `"uri"` option value — no `"driver"` key is needed when the profile specifies the driver.
+
+```go
+db, err := drv.NewDatabase(map[string]string{
+    "uri": "profile://mydb_dev",
+})
+```
+
+Or via the `"driver"` key:
+
+```go
+db, err := drv.NewDatabase(map[string]string{
+    "driver": "profile://mydb_dev",
+})
+```
+
 ## More information
 
 See https://pkg.go.dev/github.com/apache/arrow-adbc/go/adbc for more detailed documentation if needed.

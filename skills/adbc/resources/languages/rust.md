@@ -109,6 +109,47 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 }
 ```
 
+## Connection Profiles
+
+New in version 0.23.0. Not available in older versions.
+
+Use `ManagedDatabase::from_uri` with a `profile://` URI to connect via a named profile:
+
+```rust
+use adbc_core::options::AdbcVersion;
+use adbc_core::LOAD_FLAG_DEFAULT;
+use adbc_driver_manager::ManagedDatabase;
+
+let database = ManagedDatabase::from_uri(
+    "profile://mydb_dev",
+    None,
+    AdbcVersion::V100,
+    LOAD_FLAG_DEFAULT,
+    None,
+)?;
+```
+
+To override options from the profile, use `from_uri_with_opts`:
+
+```rust
+use adbc_core::options::{AdbcVersion, OptionDatabase, OptionValue};
+use adbc_core::LOAD_FLAG_DEFAULT;
+
+let overrides = vec![(
+    OptionDatabase::Uri,
+    OptionValue::String("file::memory:".to_string()),
+)];
+
+let database = ManagedDatabase::from_uri_with_opts(
+    "profile://mydb_dev",
+    None,
+    AdbcVersion::V100,
+    LOAD_FLAG_DEFAULT,
+    None,
+    overrides,
+)?;
+```
+
 ## More information
 
 See https://arrow.apache.org/adbc/current/rust/index.html for more detailed documentation if needed.

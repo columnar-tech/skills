@@ -47,6 +47,20 @@ adbc_connection_release(con)
 adbc_database_release(db)
 ```
 
+## Connection Profiles
+
+New in version 0.23.0. Not available in older versions.
+
+To use connection profiles, pass a `profile://` URI as the `uri` argument to `adbc_database_init`:
+
+```r
+db <- adbc_database_init(
+  adbc_driver("adbc_driver_manager"),
+  uri = "profile://mydb_dev"
+)
+con <- adbc_connection_init(db)
+```
+
 ## More information
 
 See https://arrow.apache.org/adbc/current/r/index.html for more detailed documentation if needed.

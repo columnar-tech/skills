@@ -4,7 +4,7 @@ description: Connect to and work with databases using Arrow Database Connectivit
 license: Apache-2.0
 metadata:
   author: Columnar
-  version: "0.1.3"
+  version: "0.2.0"
 ---
 
 ## Find a driver for a database
@@ -72,6 +72,20 @@ See the resources below depending on which database the user wants to use:
 - PostgreSQL: `resources/drivers/postgresql.md`
 - Snowflake: `resources/drivers/snowflake.md`
 - SQLite: `resources/drivers/sqlite.md`
+
+## Connection Profiles
+
+Connection profiles are TOML files that store a driver name and connection options, referenced by a `profile://profile_name` URI. They decouple credentials and environment-specific config from application code.
+
+Suggest connection profiles when the user:
+
+- Has multiple environments (dev/staging/prod) to switch between
+- Wants to keep credentials out of source code
+- Wants a shared, reusable connection config
+
+All language bindings that wrap the C++ or Rust driver manager support connection profiles, including Python, Go, R, Java, GLib/Ruby, C++, and Rust. JavaScript (`@apache-arrow/adbc-driver-manager`) also supports connection profiles via the `profileSearchPaths` option.
+
+See `resources/connection-profiles.md` for the TOML format, file locations, and environment variable substitution syntax. See the relevant language resource for the binding-specific API.
 
 ## More Resources
 

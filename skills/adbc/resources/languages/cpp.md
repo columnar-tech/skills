@@ -242,6 +242,29 @@ int main() {
 }
 ```
 
+## Connection Profiles
+
+New in version 1.11.0. Not available in older versions.
+
+Set the `"uri"` or `"driver"` option to a `profile://` URI before calling `AdbcDatabaseInit`. The driver manager loads the profile and applies its options automatically — do not also set a `"driver"` option when using `profile://`:
+
+```cpp
+AdbcDatabase database = {};
+AdbcDatabaseNew(&database, &error);
+AdbcDatabaseSetOption(&database, "uri", "profile://mydb_dev", &error);
+AdbcDatabaseInit(&database, &error);
+```
+
+Alternatively, use the `"profile"` option to pass a profile name (without the `profile://` prefix):
+
+```cpp
+AdbcDatabaseNew(&database, &error);
+AdbcDatabaseSetOption(&database, "profile", "mydb_dev", &error);
+AdbcDatabaseSetOption(&database, "additional_profile_search_path_list",
+                      "/path/to/profiles", &error);
+AdbcDatabaseInit(&database, &error);
+```
+
 ## More information
 
 See https://arrow.apache.org/adbc/current/cpp/index.html for more detailed documentation if needed.

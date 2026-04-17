@@ -66,6 +66,26 @@ with dbapi.connect(driver="sqlite", db_kwargs={"uri": ":memory:"}) as con:
         print(con.adbc_get_objects(depth="tables", catalog_filter="main", db_schema_filter="").read_all())
 ```
 
+## Connection Profiles
+
+New in version 1.11.0. Not available in older versions.
+
+Use a `profile://` URI to connect via a named profile instead of hardcoding driver and options:
+
+```python
+with dbapi.connect("profile://mydb_dev") as con:
+    with con.cursor() as cursor:
+        cursor.execute("SELECT 1")
+        print(cursor.fetch_arrow_table())
+```
+
+Pass `db_kwargs` to override specific options from the profile:
+
+```python
+with dbapi.connect("profile://mydb_dev", db_kwargs={"uri": "file::memory:"}) as con:
+    ...
+```
+
 ## More information
 
 See https://arrow.apache.org/adbc/current/python/index.html for more detailed documentation if needed.

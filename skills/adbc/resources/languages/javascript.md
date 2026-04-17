@@ -93,6 +93,19 @@ await connection.close();
 await db.close();
 ```
 
+## Connection Profiles
+
+Pass a `profile://` URI as the `driver` field:
+
+```javascript
+import { AdbcDatabase } from "@apache-arrow/adbc-driver-manager";
+
+const db = new AdbcDatabase({
+  driver: "profile://mydb_dev",
+});
+const connection = await db.connect();
+```
+
 ## More information
 
 See https://arrow.apache.org/adbc/main/javascript/index.html for more detailed documentation if needed.
