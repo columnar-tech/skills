@@ -83,7 +83,7 @@ Suggest connection profiles when the user:
 - Wants to keep credentials out of source code
 - Wants a shared, reusable connection config
 
-All language bindings that wrap the C++ or Rust driver manager support profiles, including Python, Go, R, Java, GLib/Ruby, C++, and Rust. JavaScript (`@apache-arrow/adbc-driver-manager`) also supports profiles via the `profileSearchPaths` option.
+All language bindings that wrap the C++ or Rust driver manager support connection profiles, including Python, Go, R, Java, GLib/Ruby, C++, and Rust. JavaScript (`@apache-arrow/adbc-driver-manager`) also supports connection profiles via the `profileSearchPaths` option.
 
 See `resources/connection-profiles.md` for the TOML format, file locations, and environment variable substitution syntax. See the relevant language resource for the binding-specific API.
 
