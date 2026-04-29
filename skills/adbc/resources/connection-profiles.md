@@ -18,6 +18,8 @@ Connection profiles are only supported in newer versions of each language's bind
 - R: 0.23.0
 - Rust: 0.23.0
 
+Connection profiles are resolved by the **driver manager** before the underlying database driver loads, so the version requirement applies to the driver manager package, not to any individual database driver.
+
 ## TOML format
 
 ```toml
