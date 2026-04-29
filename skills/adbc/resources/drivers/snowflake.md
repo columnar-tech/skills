@@ -33,8 +33,10 @@ Pick **one** style and use it consistently.
 Set the `uri` option:
 
 ```text
-snowflake://[user[:password]@]<account_identifier>/[database][?param1=value1&...]
+snowflake://[user[:password]@]<host>/[database][?param1=value1&...]
 ```
+
+The `<host>` may be either the bare account identifier (e.g., `myorg-account123`) or the full hostname (e.g., `myorg-account123.snowflakecomputing.com`). The bare form is recommended.
 
 URI query parameters: `warehouse`, `role`, `authenticator`, `token` (for PAT), plus the `adbc.snowflake.sql.*` options below as `&key=value` pairs. The auth method goes in `?authenticator=<value>` (see table below).
 
@@ -48,6 +50,9 @@ Omit `uri` and pass these keys directly:
 | `username` | Username |
 | `password` | Password (secret) |
 | `adbc.snowflake.sql.auth_type` | Auth method (see table below) |
+| `adbc.snowflake.sql.client_option.jwt_private_key` | Path to a PEM-encoded RSA private key file (JWT auth) |
+| `adbc.snowflake.sql.client_option.jwt_private_key_pkcs8_value` | Inline PEM private key contents (secret; JWT auth) |
+| `adbc.snowflake.sql.client_option.auth_token` | Token value (PAT, OAuth) |
 | `adbc.snowflake.sql.db` | Default database |
 | `adbc.snowflake.sql.schema` | Default schema |
 | `adbc.snowflake.sql.warehouse` | Default warehouse |
