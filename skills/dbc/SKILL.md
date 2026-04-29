@@ -4,7 +4,7 @@ description: Install ADBC (Arrow Database Connectivity) drivers with dbc. Use wh
 license: Apache-2.0
 metadata:
   author: Columnar
-  version: "1.0.1"
+  version: "1.1.0"
 ---
 
 # dbc Skill
