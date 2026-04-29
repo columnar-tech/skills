@@ -4,7 +4,7 @@ description: Connect to and work with databases using Arrow Database Connectivit
 license: Apache-2.0
 metadata:
   author: Columnar
-  version: "0.2.0"
+  version: "0.2.1"
 ---
 
 ## Find a driver for a database
@@ -20,9 +20,9 @@ Prefer installing it with these commands, in order of preference, if the tool is
 
 - If `uv` is available: `uv tool install dbc`
 - If `pipx` is available: `pipx install dbc`
-- Otherwise install dbc with the appropriate command for their operating system:
-  - macOS & Linux: Run `curl -LsSf https://dbc.columnar.tech/install.sh | sh`
-  - Windows: Run `powershell -ExecutionPolicy ByPass -c "irm https://dbc.columnar.tech/install.ps1 | iex"`
+- If `brew` is available: `brew install columnar-tech/tap/dbc`
+- On Windows, if `winget` is available: `winget install dbc`
+- Otherwise, direct the user to the installation docs: https://docs.columnar.tech/dbc/getting_started/installation/
 
 ### Search for a driver
 
