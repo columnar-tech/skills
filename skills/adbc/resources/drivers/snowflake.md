@@ -2,6 +2,8 @@
 
 ## Installing the Driver
 
+Install the Snowflake ADBC driver with dbc by running:
+
 ```sh
 dbc install snowflake
 ```
