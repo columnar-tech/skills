@@ -112,6 +112,16 @@ Auth info must match the chosen style: when `uri` is set, `authenticator` goes i
 
 If no database was specified via URI or `adbc.snowflake.sql.db`, list available databases with `AdbcConnectionGetObjects` at `depth="catalogs"`, then execute `USE DATABASE <NAME>`. Schema, warehouse, and role can also be switched with `USE SCHEMA`, `USE WAREHOUSE`, and `USE ROLE`.
 
+## Identifiers and Case
+
+Snowflake stores unquoted identifiers in uppercase, so:
+
+- Query result column names come back uppercase (e.g., `C_CUSTKEY`, not `c_custkey`).
+- Metadata from `AdbcConnectionGetObjects` (catalog, schema, table, column names) comes back uppercase.
+- Downstream code that indexes rows by column name should match on the uppercase form or case-fold first.
+
+Unquoted identifiers in SQL are fine in any case (`SELECT … FROM customer` works); double-quoted identifiers are case-sensitive and must match exactly as stored.
+
 ## More Information
 
 See https://docs.adbc-drivers.org/drivers/snowflake/index.html for more detailed documentation if needed.
