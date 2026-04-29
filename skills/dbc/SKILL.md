@@ -26,10 +26,23 @@ Prefer installing it with these commands, in order of preference, if the tool is
 ## Most Important Commands
 
 - `dbc install <driver>` - Install a driver (e.g., `dbc install snowflake`)
-- `dbc search [pattern]` - Search for a driver using a pattern (e.g., `dbc search sql`). Also lists installed drivers.
+- `dbc search [pattern]` - Search for a driver using a pattern (e.g., `dbc search sql`). Also lists installed drivers (see below).
 - `dbc info <driver>` - Get driver details
 
 Run `dbc --help` to learn about other commands.
+
+## Listing Installed Drivers
+
+**There is no `dbc list` command. Do not run `dbc list` — it will fail.**
+
+To see which drivers are already installed, run `dbc search` with no arguments (or with a pattern) and look for entries marked `[installed: ...]` in the output. For example:
+
+```
+postgresql   An ADBC driver for PostgreSQL ...   [installed: user=>1.11.0]
+snowflake    An ADBC driver for Snowflake  ...   [installed: user=>1.10.3]
+```
+
+Entries without an `[installed: ...]` tag are available but not yet installed.
 
 ## Project Workflow
 
