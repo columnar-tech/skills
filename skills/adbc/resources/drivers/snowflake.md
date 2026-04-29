@@ -17,6 +17,7 @@ Snowflake supports several authentication methods, each with different required 
 ### Common Environment Variables (Snowflake convention; not read automatically by the driver)
 
 - `SNOWFLAKE_ACCOUNT` — account identifier
+- `SNOWFLAKE_URL` — full account URL (alternative to `SNOWFLAKE_ACCOUNT`)
 - `SNOWFLAKE_USER` — username
 - `SNOWFLAKE_PASSWORD` — password
 - `SNOWFLAKE_AUTHENTICATOR` — auth method override
@@ -26,7 +27,7 @@ Snowflake supports several authentication methods, each with different required 
 
 ## Connection Styles
 
-Pick **one** style and use it consistently.
+Prefer picking **one** style and using it consistently. Mixing them (setting `uri` plus additional `adbc.snowflake.sql.*` options) is technically possible but discouraged — it splits the connection config across two places and makes it easy to set the auth info ambiguously (e.g., `authenticator` in the URI *and* `adbc.snowflake.sql.auth_type` as an option).
 
 ### URI style
 
@@ -52,12 +53,25 @@ Omit `uri` and pass these keys directly:
 | `adbc.snowflake.sql.auth_type` | Auth method (see table below) |
 | `adbc.snowflake.sql.client_option.jwt_private_key` | Path to a PEM-encoded RSA private key file (JWT auth) |
 | `adbc.snowflake.sql.client_option.jwt_private_key_pkcs8_value` | Inline PEM private key contents (secret; JWT auth) |
-| `adbc.snowflake.sql.client_option.auth_token` | Token value (PAT, OAuth) |
+| `adbc.snowflake.sql.client_option.jwt_private_key_pkcs8_password` | Passphrase for an encrypted PKCS8 private key (secret; JWT auth) |
+| `adbc.snowflake.sql.client_option.auth_token` | Token value (PAT, OAuth, and other token-based auth methods) |
+| `adbc.snowflake.sql.client_option.okta_url` | Okta endpoint URL (Okta auth) |
+| `adbc.snowflake.sql.client_option.identity_provider` | Identity provider for Workload Identity Federation (`auth_wif`) |
+| `adbc.snowflake.sql.client_option.ocsp_fail_open_mode` | OCSP fail-open behavior (certificate revocation checks) |
 | `adbc.snowflake.sql.db` | Default database |
 | `adbc.snowflake.sql.schema` | Default schema |
 | `adbc.snowflake.sql.warehouse` | Default warehouse |
 | `adbc.snowflake.sql.role` | Default role |
 | `adbc.snowflake.sql.client_option.tls_skip_verify` | `"true"` to disable TLS verification (not for production) |
+
+The following keys are rarely needed — only set them when you have to override the default host construction (for example, to reach a non-standard region endpoint or a private/proxy URL):
+
+| Key | Purpose |
+| --- | --- |
+| `adbc.snowflake.sql.region` | Region override |
+| `adbc.snowflake.sql.uri.protocol` | `http` or `https` override |
+| `adbc.snowflake.sql.uri.port` | Port override |
+| `adbc.snowflake.sql.uri.host` | Host override |
 
 ### Auth method value mapping
 
@@ -86,6 +100,8 @@ Auth info must match the chosen style: when `uri` is set, `authenticator` goes i
 
 `auth_snowflake` is the default, so the auth marker is optional. URI equivalent: `snowflake://<user>:<password>@<account>/[database]`.
 
+A programmatic access token (PAT) can also be supplied as the `password` under `auth_snowflake` — the driver will accept it in place of a regular password. This is an alternative to using `auth_pat` below.
+
 ### 2. JWT Key Pair (RSA private key)
 
 - `adbc.snowflake.sql.account`
@@ -94,6 +110,7 @@ Auth info must match the chosen style: when `uri` is set, `authenticator` goes i
 - Exactly one private key source:
   - `adbc.snowflake.sql.client_option.jwt_private_key` — path to a PEM-encoded RSA private key file, **or**
   - `adbc.snowflake.sql.client_option.jwt_private_key_pkcs8_value` — the PEM contents inline (secret)
+- `adbc.snowflake.sql.client_option.jwt_private_key_pkcs8_password` — passphrase to decrypt the private key, if it is encrypted (secret; required only for encrypted keys)
 
 ### 3. Programmatic Access Token (PAT)
 
@@ -114,13 +131,11 @@ If no database was specified via URI or `adbc.snowflake.sql.db`, list available 
 
 ## Identifiers and Case
 
-Snowflake stores unquoted identifiers in uppercase, so:
+Snowflake stores and resolves unquoted identifiers as uppercase. Double-quoted identifiers preserve case and are resolved exactly as written, by default. Therefore, names returned by metadata APIs such as `AdbcConnectionGetObjects`, and simple column names in query results, should be treated as the stored Snowflake identifier form.
 
-- Query result column names come back uppercase (e.g., `C_CUSTKEY`, not `c_custkey`).
-- Metadata from `AdbcConnectionGetObjects` (catalog, schema, table, column names) comes back uppercase.
-- Downstream code that indexes rows by column name should match on the uppercase form or case-fold first.
+In typical Snowflake databases, objects and columns are created unquoted, so expect uppercase names such as `C_CUSTKEY`, not `c_custkey`. Do not rely on the case the user typed in SQL; compare against the stored identifier form, or normalize consistently.
 
-Unquoted identifiers in SQL are fine in any case (`SELECT … FROM customer` works); double-quoted identifiers are case-sensitive and must match exactly as stored.
+Exception: if a table or column was created with double quotes, for example `CREATE TABLE "MyTable" ("id" INT)`, Snowflake stores those names exactly as `MyTable` and `id`, and SQL must reference them with double quotes and the exact case: `SELECT "id" FROM "MyTable"`.
 
 ## More Information
 
