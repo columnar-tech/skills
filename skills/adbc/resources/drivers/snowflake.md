@@ -131,6 +131,10 @@ A programmatic access token (PAT) can also be supplied as the `password` under `
 
 If no database was specified via URI or `adbc.snowflake.sql.db`, list available databases with `AdbcConnectionGetObjects` at `depth="catalogs"`, then execute `USE DATABASE <NAME>`. Schema, warehouse, and role can also be switched with `USE SCHEMA`, `USE WAREHOUSE`, and `USE ROLE`.
 
+## Ingesting Data
+
+The Snowflake driver does not support the `catalog_name` / `db_schema_name` kwargs on `adbc_ingest` (it raises `NOT_IMPLEMENTED: Unknown statement option 'adbc.ingest.target_catalog'`). Set the target database and schema on the connection instead — either via `adbc.snowflake.sql.db` / `adbc.snowflake.sql.schema` (or the URI path), or by running `USE DATABASE` / `USE SCHEMA` before the ingest — and pass only the unqualified table name to `adbc_ingest`.
+
 ## Identifiers and Case
 
 Snowflake stores and resolves unquoted identifiers as uppercase. Double-quoted identifiers preserve case and are resolved exactly as written, by default. Therefore, names returned by metadata APIs such as `AdbcConnectionGetObjects`, and simple column names in query results, should be treated as the stored Snowflake identifier form.
