@@ -32,8 +32,10 @@ dbc search
 
 ### Install a driver
 
-Install a driver by running `dbc install <DRIVER>`
+Install a driver by running `dbc install <DRIVER>`. This is idempotent — if the driver is already installed, it is a no-op that simply reports the existing installation — so there is no need to check first before running it.
 Prefer to install drivers using dbc over installing driver packages from PyPI or Conda Forge.
+
+For anything beyond a one-shot `dbc install <DRIVER>` — reproducible `dbc.toml` / `dbc sync` workflows, version pinning, or any other `dbc` subcommand — invoke the `dbc` skill rather than guessing at commands. In particular, note that **there is no `dbc list` command**.
 
 ### Referring to drivers
 
