@@ -21,7 +21,8 @@ Prefer installing it with these commands, in order of preference, if the tool is
 - If `pipx` is available: `pipx install dbc`
 - If `brew` is available: `brew install columnar-tech/tap/dbc`
 - On Windows, if `winget` is available: `winget install dbc`
-- Otherwise, direct the user to the installation docs: https://docs.columnar.tech/dbc/getting_started/installation/
+
+If none of the above options are available, stop and ask the user if they want to install dbc themselves manually before proceeding. Direct them to the installation docs: https://docs.columnar.tech/dbc/getting_started/installation/.
 
 ## Most Important Commands
 
