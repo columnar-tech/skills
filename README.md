@@ -16,7 +16,7 @@ limitations under the License.
 
 # Agent Skills
 
-[Agent skills](https://agentskills.io) for [ADBC](https://arrow.apache.org/adbc) and [dbc](https://docs.columnar.tech/dbc).
+[Agent skills](https://agentskills.io) for [ADBC](https://arrow.apache.org/adbc), [dbc](https://docs.columnar.tech/dbc), and [databow](https://docs.columnar.tech/databow).
 
 ## Installation
 
@@ -34,6 +34,7 @@ Note: The skills package can also help keep this skill up to date when we make c
 
 - `adbc` — Skill for using [ADBC](https://arrow.apache.org/adbc) (Arrow Database Connectivity)
 - `dbc` — Skill for using [dbc](https://docs.columnar.tech/dbc) (the CLI for installing and managing ADBC drivers)
+- `databow` — Skill for using [databow](https://docs.columnar.tech/databow) (the CLI for querying databases)
 
 ## Contributing
 
