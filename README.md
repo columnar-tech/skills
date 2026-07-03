@@ -20,15 +20,18 @@ limitations under the License.
 
 ## Installation
 
-The fastest way to install these skills to your agent of choice is with the [skills](https://www.npmjs.com/package/skills) package:
+There are multiple automated ways to install these skills:
 
 ```sh
-npx skills add columnar-tech/skills
+# GitHub CLI (https://cli.github.com)
+$ gh skill install github.com/columnar-tech/skills
+# skills package (https://www.skills.sh)
+$ npx skills add columnar-tech/skills
 ```
 
-If you prefer manual installation, refer to your coding agents' documentation for skill installation.
+Note: To update your local versions of these skills once you install them, both `gh skill` and `npx skills` have update subcommands.
 
-Note: The skills package can also help keep this skill up to date when we make changes with `npx skills update`.
+If you prefer manual installation, refer to your coding agents' documentation for skill installation.
 
 ## Available Skills
 
