@@ -24,7 +24,8 @@ There are multiple automated ways to install these skills:
 
 ```sh
 # GitHub CLI (https://cli.github.com)
-$ gh skill install github.com/columnar-tech/skills
+$ gh skill install columnar-tech/skills
+
 # skills package (https://www.skills.sh)
 $ npx skills add columnar-tech/skills
 ```
